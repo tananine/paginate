@@ -32,17 +32,19 @@ function Paginate() {
     const prev3 = page - 3;
 
     const beforeSelect = () => {
+      const isShowPrev2 = prev2 > 1 && page !== lastPage - 3;
+
       return (
         <>
           {page !== 1 && <NumberPaginate number={1} setPage={setPageHandler} />}
           {prev3 > 1 && <div>...</div>}
           {next2 >= lastPage + 2 && (
-            <NumberPaginate number={next1 - 5} setPage={setPageHandler} />
+            <NumberPaginate number={page - 4} setPage={setPageHandler} />
           )}
           {next1 >= lastPage && (
-            <NumberPaginate number={next2 - 5} setPage={setPageHandler} />
+            <NumberPaginate number={page - 3} setPage={setPageHandler} />
           )}
-          {prev2 > 1 && page !== lastPage - 3 && (
+          {isShowPrev2 && (
             <NumberPaginate number={prev2} setPage={setPageHandler} />
           )}
           {prev1 > 1 && (
@@ -53,12 +55,14 @@ function Paginate() {
     };
 
     const afterSelect = () => {
+      const isShowNext2 = next2 < lastPage && page !== 4;
+
       return (
         <>
           {next1 < lastPage && (
             <NumberPaginate number={next1} setPage={setPageHandler} />
           )}
-          {next2 < lastPage && page !== 4 && (
+          {isShowNext2 && (
             <NumberPaginate number={next2} setPage={setPageHandler} />
           )}
           {prev1 <= 1 && (
